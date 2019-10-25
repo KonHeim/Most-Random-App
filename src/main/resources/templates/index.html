@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: aquamarine;
+            margin: auto;
+            width: 60%;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+
+        #buttons {
+            margin: auto;
+        }
+
+        content {
+            margin: auto;
+        }
+
+        img {
+            max-width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="buttons">
+
+    </div>
+    <div id="content">
+
+    </div>
+    <script>
+
+        var urls = [
+            "dog",
+            "cat",
+            "fox",
+            "activity",
+            "joke",
+            "jesus",
+            "kanye",
+            "yesno",
+            "number",
+            "advice"
+        ]
+
+        var endPoints = urls.map(url => "http://localhost:8080/api/".concat(url)
+        );
+        var imageLike = [".jpg", ".jpeg", ".png", ".bmp", ".gif", ".img"];
+
+        var body = document.getElementsByTagName("body")[0];
+        var box = document.getElementById("content");
+        endPoints.forEach(endPoint => {
+            var container = document.createElement('div');
+            var button = document.createElement("button");
+            button.innerText = endPoint.split('/')[4].toUpperCase();
+            buttons.append(button);
+            body.append(container);
+            button.onclick = () => {
+                fetch(endPoint)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (box.childNodes.length > 0) {
+                            box.removeChild(box.firstChild);
+                        }
+                        const content = Object.values(result)[0];
+
+                        if (imageLike.some(extension => content.toLowerCase().indexOf(extension) > 0)) {
+                            console.log("photo");
+
+                            var imageTag = document.createElement("img");
+                            imageTag.src = content;
+                            box.append(imageTag);
+
+                        } else if (content.indexOf(".mp4") > 0) {
+                            console.log("videjo")
+
+                            var video = document.createElement("video");
+                            var source = document.createElement("source");
+                            source.src = content;
+                            source.type = "video/mp4"
+                            video.append(source)
+                            box.append(video);
+
+                            video.autoplay = true;
+                            video.play();
+
+                        } else {
+
+                            console.log(content);
+                            var textAkarmi = document.createElement("p")
+                            textAkarmi.textContent = content;
+                            box.append(textAkarmi);
+
+                        }
+                    }
+                    )
+            }
+        })
+    </script>
+</body>
+
+</html>
