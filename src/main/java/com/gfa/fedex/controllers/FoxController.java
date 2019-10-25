@@ -14,16 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class FoxController {
 
   @GetMapping("/fox")
-  public ResponseEntity getFox(Foxes foxes) throws UnirestException {
+  public ResponseEntity getFox() throws UnirestException {
 
     HttpResponse<JsonNode> response = Unirest.get("https://randomfox.ca/floof/")
             .asJson();
 
     JSONObject obj = response.getBody().getObject();
 
-    Foxes fox = new Foxes();
-
-    fox.setImage(obj.optString("image"));
+    Foxes fox = new Foxes(obj.optString("image"));
 
     return ResponseEntity.status(200).body(fox);
 

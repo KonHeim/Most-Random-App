@@ -14,16 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class DogController {
 
   @GetMapping("/dog")
-  public ResponseEntity getDog(Dogs dogs) throws UnirestException {
+  public ResponseEntity getDog() throws UnirestException {
 
     HttpResponse<JsonNode> response = Unirest.get("https://random.dog/woof.json")
             .asJson();
 
     JSONObject obj = response.getBody().getObject();
 
-    Dogs dog = new Dogs();
-
-    dog.setUrl(obj.optString("url"));
+    Dogs dog = new Dogs(obj.optString("url"));
 
     return ResponseEntity.status(200).body(dog);
 

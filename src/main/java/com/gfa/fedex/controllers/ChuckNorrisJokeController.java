@@ -24,9 +24,7 @@ public class ChuckNorrisJokeController {
 
     JSONObject obj = response.getBody().getObject();
 
-    ChuckNorrisJokes chuckNorrisJokes = new ChuckNorrisJokes();
-
-    chuckNorrisJokes.setValue(obj.optString("value"));
+    ChuckNorrisJokes chuckNorrisJokes = new ChuckNorrisJokes(obj.optString("value"));
 
     return ResponseEntity.status(200).body(chuckNorrisJokes);
 

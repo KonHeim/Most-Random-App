@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class CatController {
 
   @GetMapping("/cat")
-  public ResponseEntity getCat(Cats cats) throws UnirestException {
+  public ResponseEntity getCat() throws UnirestException {
 
     HttpResponse<JsonNode> response = Unirest.get("https://aws.random.cat/meow")
             .asJson();
 
     JSONObject obj = response.getBody().getObject();
 
-    Cats cat = new Cats();
-
-    cat.setFile(obj.optString("file"));
+    Cats cat = new Cats(obj.optString("file"));
 
     return ResponseEntity.status(200).body(cat);
 

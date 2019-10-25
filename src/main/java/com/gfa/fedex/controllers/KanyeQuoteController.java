@@ -1,6 +1,6 @@
 package com.gfa.fedex.controllers;
 
-import com.gfa.fedex.models.Advices;
+import com.gfa.fedex.models.KanyeQuotes;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -11,20 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AdviceController {
+public class KanyeQuoteController {
 
-  @GetMapping("/advice")
-  public ResponseEntity getAdvice() throws UnirestException {
+  @GetMapping("/kanye")
+  public ResponseEntity getKanyeQuote() throws UnirestException {
 
-    HttpResponse<JsonNode> response = Unirest.get("https://api.adviceslip.com/advice")
+    HttpResponse<JsonNode> response = Unirest.get("https://api.kanye.rest/")
             .asJson();
 
     JSONObject obj = response.getBody().getObject();
 
-    String advice = obj.getJSONObject("slip").optString("advice");
+    KanyeQuotes kanyeQuotes = new KanyeQuotes(obj.optString("quote"));
 
-    Advices advices = new Advices(advice);
+    return ResponseEntity.status(200).body(kanyeQuotes);
 
-    return ResponseEntity.status(200).body(advices);
   }
 }

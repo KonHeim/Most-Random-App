@@ -1,4 +1,4 @@
-package com.gfa.fedex.models.advice;
+package com.gfa.fedex.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
