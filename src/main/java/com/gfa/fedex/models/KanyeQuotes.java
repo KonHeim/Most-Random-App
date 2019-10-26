@@ -1,14 +1,8 @@
 package com.gfa.fedex.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class KanyeQuotes {
 
-  @JsonProperty(value = "KanyeQuote")
   private String quote;
-
-  public KanyeQuotes() {
-  }
 
   public KanyeQuotes(String quote) {
     this.quote = quote;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class ActivityController {
+public class APIController {
 
   @GetMapping("/activity")
   public ResponseEntity getActivity() throws UnirestException {
